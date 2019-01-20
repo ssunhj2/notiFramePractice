@@ -1,6 +1,6 @@
 package noti.common.service;
 
-import java.sql.SQLOutput;
+
 import java.util.*;
 
 import noti.common.MessageFrom;
@@ -13,50 +13,50 @@ public class notiMessage
     public static void main(String[] args)
     {
         // user list 불러옴
-        List<UserDTO> userList = new ArrayList();
+        List<UserDTO> userList = new ArrayList<UserDTO>();
 
-        String notiType = MessageFrom.APPLE.toString();
+        MessageFrom notiType = MessageFrom.APPLE;
 
         // 각 그룹별 template 을 구성한다.
-        List<Map<String, TemplateDTO>>  tempGroup = makeTempGroup();
+        Map<String, TemplateDTO> tempGroup = makeTempGroup(notiType);
 
         // 각 그룹별 user List를 구성한다.
-        Map<String, List<UserDTO>> userGroup = makeUserGroup();
+        Map<String, List<UserDTO>> userGroup = makeUserGroup(notiType);
 
         // 알림을 전송한다.
 
     }
 
-    private static List<Map<String, TemplateDTO>> makeTempGroup()
+    private static Map<String, TemplateDTO> makeTempGroup(MessageFrom notiType)
     {
-        List<Map<String, TemplateDTO>> tempGroup = new ArrayList<>();
+        Map<String, TemplateDTO> tempGroupMap = new HashMap<>();
 
         switch(notiType)
         {
             case APPLE:
-                tempGroup = makeAppleTemplate();
+                tempGroupMap = makeAppleTemplate();
                 break;
             case PEACH:
-                tempGroup = makePeachTemplate();
+                tempGroupMap = makePeachTemplate();
                 break;
             case COFFEE:
-                tempGroup = makeCoffeeTemplate();
+                tempGroupMap = makeCoffeeTemplate();
                 break;
             case CAKE:
-                tempGroup = makeCakeTemplate();
+                tempGroupMap = makeCakeTemplate();
                 break;
             default:
                 System.out.println("템플릿 생성 fail");
                 break;
         }
 
-        return tempGroup;
+        return tempGroupMap;
     }
 
 
-    private static Map<String, List<UserDTO>> makeUserGroup()
+    private static Map<String, List<UserDTO>> makeUserGroup(MessageFrom notiType)
     {
-        Map<String, List<UserDTO>> userGroup = new HashMap();
+        Map<String, List<UserDTO>> userGroup = new HashMap<>();
 
         switch(notiType)
         {
@@ -80,51 +80,59 @@ public class notiMessage
         return userGroup;
     }
 
-    private static List<Map<String, TemplateDTO>> makeAppleTemplate()
+    private static Map<String, TemplateDTO> makeAppleTemplate()
     {
         System.out.println("APPLE=========================");
 
-        Map<String, TemplateDTO> appleTemp = new HashMap();
+        Map<String, TemplateDTO> appleTempMap = new HashMap<>();
 
         System.out.println("APPLE 템플릿 값 가져오기");
         System.out.println("APPLE 과일별로 나눈다.");
 
         TemplateDTO appleTempDTO1 = new TemplateDTO();
         appleTempDTO1.setTempName("apple1템플릿");
-        appleTemp.put("apple1", appleTempDTO1);
+        appleTempMap.put("apple1", appleTempDTO1);
 
         TemplateDTO appleTempDTO2 = new TemplateDTO();
         appleTempDTO2.setTempName("apple2템플릿");
-        appleTemp.put("apple2", appleTempDTO2);
+        appleTempMap.put("apple2", appleTempDTO2);
 
         System.out.println("apple 버튼생성");
 
-        List<Map<String, TemplateDTO>> appleTempList = new ArrayList<>();
-        appleTempList.add(appleTemp);
-        return appleTempList;
+        return appleTempMap;
     }
 
-    private static List<Map<String, TemplateDTO>> makePeachTemplate()
+    private static Map<String, TemplateDTO> makePeachTemplate()
     {
+        Map<String, TemplateDTO> peachTempMap = new HashMap<>();
+
         System.out.println("PEACH=========================");
         System.out.println("PEACH  템플릿 값 가져오기");
         System.out.println("wo req 템플릿 생성");
+
+        return peachTempMap;
     }
 
-    private static List<Map<String, TemplateDTO>> makeCoffeeTemplate()
+    private static Map<String, TemplateDTO> makeCoffeeTemplate()
     {
+        Map<String, TemplateDTO> coffeeTempMap = new HashMap<>();
+
         System.out.println("COFFEE=========================");
         System.out.println("COFFEE 값 가져오기");
-
-        Map<>
         System.out.println("today work 템플릿 생성");
+
+        return coffeeTempMap;
     }
 
-    private static List<Map<String, TemplateDTO>> makeCakeTemplate()
+    private static Map<String, TemplateDTO> makeCakeTemplate()
     {
+        Map<String, TemplateDTO> cakeTempMap = new HashMap<>();
+
         System.out.println("CAKE=========================");
         System.out.println("CAKE 값 가져오기");
         System.out.println("today check 템플릿 생성");
+
+        return cakeTempMap;
     }
 
     private static void getAppleUserList()
